@@ -206,7 +206,7 @@ if (statsRow) statsObserver.observe(statsRow);
    7. VISITOR TRACKER — GOOGLE SHEETS
 ════════════════════════════════════ */
 // 👇 Step 3: Apna Apps Script Web App URL yahan paste karo
-const TRACKER_URL = "https://script.google.com/macros/s/AKfycbwA8I-l73Frq5ETkRfgtsUF54LVZ9S-fDUtRd0zFuyqpW1Wnq1vcA_ic7i5UedqQRc/exec";
+const TRACKER_URL = "https://script.google.com/macros/s/AKfycbwHCKmP2QGemvv8Olb79zF-8w-XaCdkbNs1t91Wmkc0C68pjdtnKlq0Nfd7frKXsm0/exec";
 
 async function trackVisitor() {
   if (TRACKER_URL.includes("YAHAN")) return; // URL set nahi kiya toh skip
