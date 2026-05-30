@@ -16,7 +16,6 @@ document.addEventListener('mousemove', e => {
   cur.style.top  = (my - 5) + 'px';
 });
 
-// Smooth ring follow
 (function loopRing() {
   rx += (mx - rx) * 0.11;
   ry += (my - ry) * 0.11;
@@ -25,16 +24,9 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(loopRing);
 })();
 
-// Cursor hover effect
 document.querySelectorAll('a, button, .proj-card, .sk-card, .ach-card, .btn').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cur.classList.add('hover');
-    curR.classList.add('hover');
-  });
-  el.addEventListener('mouseleave', () => {
-    cur.classList.remove('hover');
-    curR.classList.remove('hover');
-  });
+  el.addEventListener('mouseenter', () => { cur.classList.add('hover'); curR.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); curR.classList.remove('hover'); });
 });
 
 
@@ -54,50 +46,27 @@ window.addEventListener('resize', resizeCanvas);
 
 const PARTICLE_COUNT = 60;
 const particles = [];
-
 for (let i = 0; i < PARTICLE_COUNT; i++) {
-  particles.push({
-    x:  Math.random() * 1920,
-    y:  Math.random() * 1080,
-    vx: (Math.random() - 0.5) * 0.45,
-    vy: (Math.random() - 0.5) * 0.45,
-    r:  Math.random() * 1.8 + 0.4
-  });
+  particles.push({ x: Math.random()*1920, y: Math.random()*1080, vx: (Math.random()-.5)*.45, vy: (Math.random()-.5)*.45, r: Math.random()*1.8+.4 });
 }
 
 function drawParticles() {
   ctx.clearRect(0, 0, W, H);
-
-  // Move
   particles.forEach(p => {
     p.x += p.vx; p.y += p.vy;
     if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
     if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
   });
-
-  // Lines between nearby particles
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    for (let j = i + 1; j < PARTICLE_COUNT; j++) {
-      const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+    for (let j = i+1; j < PARTICLE_COUNT; j++) {
+      const d = Math.hypot(particles[i].x-particles[j].x, particles[i].y-particles[j].y);
       if (d < 155) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,161,224,${0.13 * (1 - d / 155)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,161,224,${0.13*(1-d/155)})`; ctx.lineWidth = .5; ctx.stroke();
       }
     }
   }
-
-  // Dots
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0,161,224,0.55)';
-    ctx.fill();
-  });
-
+  particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fillStyle='rgba(0,161,224,0.55)'; ctx.fill(); });
   requestAnimationFrame(drawParticles);
 }
 drawParticles();
@@ -106,24 +75,18 @@ drawParticles();
 /* ════════════════════════════════════
    3. NAV — SCROLL SHRINK + ACTIVE
 ════════════════════════════════════ */
-const navEl   = document.querySelector('nav');
+const navEl    = document.querySelector('nav');
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav ul a');
 
 window.addEventListener('scroll', () => {
-  // Shrink nav
   if (window.scrollY > 60) navEl.classList.add('scrolled');
-  else                      navEl.classList.remove('scrolled');
-
-  // Active nav link
+  else navEl.classList.remove('scrolled');
   const sy = window.scrollY;
   sections.forEach(sec => {
-    const top    = sec.offsetTop - 140;
-    const bottom = top + sec.offsetHeight;
+    const top = sec.offsetTop - 140, bottom = top + sec.offsetHeight;
     if (sy >= top && sy < bottom) {
-      navLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + sec.id);
-      });
+      navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + sec.id); });
     }
   });
 }, { passive: true });
@@ -133,14 +96,8 @@ window.addEventListener('scroll', () => {
    4. TIMELINE — SCROLL REVEAL
 ════════════════════════════════════ */
 const tlObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('vis');
-      tlObserver.unobserve(e.target);
-    }
-  });
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); tlObserver.unobserve(e.target); } });
 }, { threshold: 0.12 });
-
 document.querySelectorAll('.tl-item').forEach(el => tlObserver.observe(el));
 
 
@@ -149,15 +106,9 @@ document.querySelectorAll('.tl-item').forEach(el => tlObserver.observe(el));
 ════════════════════════════════════ */
 const barObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.w + '%';
-      });
-      barObserver.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.w+'%'); barObserver.unobserve(e.target); }
   });
 }, { threshold: 0.3 });
-
 const skillBarsEl = document.getElementById('skill-bars');
 if (skillBarsEl) barObserver.observe(skillBarsEl);
 
@@ -166,97 +117,97 @@ if (skillBarsEl) barObserver.observe(skillBarsEl);
    6. STATS — COUNT UP ANIMATION
 ════════════════════════════════════ */
 function countUp(el, target) {
-  const duration = 1700;
-  const startTime = performance.now();
-
-  function step(now) {
-    const elapsed  = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased    = 1 - Math.pow(1 - progress, 3); // ease out cubic
-    el.textContent = Math.round(eased * target);
-    if (progress < 1) {
-      requestAnimationFrame(step);
-    } else {
-      // Add suffix
-      el.textContent = target + (target >= 50 ? '%' : '+');
-    }
-  }
-  requestAnimationFrame(step);
+  const dur = 1700, t0 = performance.now();
+  (function step(now) {
+    const p = Math.min((now-t0)/dur, 1), e = 1-Math.pow(1-p, 3);
+    el.textContent = Math.round(e*target);
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = target + (target >= 50 ? '%' : '+');
+  })(performance.now());
 }
-
 const statsObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('[data-target]').forEach(el => {
-        countUp(el, parseInt(el.dataset.target));
-      });
-      statsObserver.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.querySelectorAll('[data-target]').forEach(el => countUp(el, parseInt(el.dataset.target))); statsObserver.unobserve(e.target); }
   });
 }, { threshold: 0.4 });
-
 const statsRow = document.querySelector('.stats');
 if (statsRow) statsObserver.observe(statsRow);
 
 
-/* ═══════════════════
-
-
-═════════════════
+/* ════════════════════════════════════
    7. VISITOR TRACKER — GOOGLE SHEETS
+   (IP Location + GPS Location)
 ════════════════════════════════════ */
-// 👇 Step 3: Apna Apps Script Web App URL yahan paste karo
-const TRACKER_URL = "https://script.google.com/macros/s/AKfycbwHCKmP2QGemvv8Olb79zF-8w-XaCdkbNs1t91Wmkc0C68pjdtnKlq0Nfd7frKXsm0/exec";
+// 👇 Apna Apps Script URL yahan paste karo
+const TRACKER_URL = "https://script.google.com/macros/s/AKfycbwqNE8-Ef5jVEpYH7rMGspG6yAZkjbJjnfqh2Y-XHxOBBTgAqto4RahNQ1MLI8Ii-A/exec";
 
+// ── Helper functions ──
+const ua = navigator.userAgent;
+const getDevice  = () => /Mobi|Android/i.test(ua) ? "Mobile" : /Tablet|iPad/i.test(ua) ? "Tablet" : "Desktop";
+const getBrowser = () => ua.includes("Edg") ? "Edge" : ua.includes("OPR") ? "Opera" : ua.includes("Chrome") ? "Chrome" : ua.includes("Firefox") ? "Firefox" : ua.includes("Safari") ? "Safari" : "Other";
+const getOS      = () => ua.includes("Windows") ? "Windows" : ua.includes("Mac") ? "MacOS" : ua.includes("Android") ? "Android" : (ua.includes("iPhone")||ua.includes("iPad")) ? "iOS" : ua.includes("Linux") ? "Linux" : "Unknown";
+
+// ── Send data to Google Sheets ──
+async function sendToSheet(data) {
+  await fetch(TRACKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify(data)
+  });
+  console.log("✅ Visitor tracked!", data);
+}
+
+// ── Main tracker function ──
 async function trackVisitor() {
-  if (TRACKER_URL.includes("YAHAN")) return; // URL set nahi kiya toh skip
+  if (TRACKER_URL.includes("YAHAN")) return;
 
   try {
-    // Location from IP (free API)
+    // 1. IP se basic info
     const geoRes = await fetch("https://ipapi.co/json/");
     const geo    = await geoRes.json();
 
-    const ua = navigator.userAgent;
-
-    const getDevice = () => {
-      if (/Mobi|Android/i.test(ua)) return "Mobile";
-      if (/Tablet|iPad/i.test(ua))  return "Tablet";
-      return "Desktop";
+    // 2. Extra browser info
+    const extraInfo = {
+      city:       geo.city        || "Unknown",
+      country:    geo.country     || "Unknown",
+      device:     getDevice(),
+      browser:    getBrowser(),
+      os:         getOS(),
+      referrer:   document.referrer ? document.referrer : "Direct",
+      language:   navigator.language || "Unknown",
+      screen:     `${screen.width}x${screen.height}`,
+      timezone:   Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
+      gps_lat:    "Not allowed",
+      gps_lng:    "Not allowed",
+      gps_acc:    "Not allowed"
     };
 
-    const getBrowser = () => {
-      if (ua.includes("Edg"))     return "Edge";
-      if (ua.includes("OPR"))     return "Opera";
-      if (ua.includes("Chrome"))  return "Chrome";
-      if (ua.includes("Firefox")) return "Firefox";
-      if (ua.includes("Safari"))  return "Safari";
-      return "Other";
-    };
+    // 3. GPS Location try karo (permission maangega)
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        // ✅ Allow kiya toh — exact GPS milegi
+        (pos) => {
+          extraInfo.gps_lat = pos.coords.latitude.toFixed(6);
+          extraInfo.gps_lng = pos.coords.longitude.toFixed(6);
+          extraInfo.gps_acc = Math.round(pos.coords.accuracy) + "m";
+          sendToSheet(extraInfo);
+        },
+        // ❌ Block kiya toh — baki info toh bhejo
+        () => {
+          extraInfo.gps_lat = "Blocked";
+          extraInfo.gps_lng = "Blocked";
+          extraInfo.gps_acc = "Blocked";
+          sendToSheet(extraInfo);
+        },
+        { timeout: 8000, maximumAge: 0 }
+      );
+    } else {
+      // Browser GPS support nahi karta
+      sendToSheet(extraInfo);
+    }
 
-    const getOS = () => {
-      if (ua.includes("Windows")) return "Windows";
-      if (ua.includes("Mac"))     return "MacOS";
-      if (ua.includes("Android")) return "Android";
-      if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
-      if (ua.includes("Linux"))   return "Linux";
-      return "Unknown";
-    };
-
-    await fetch(TRACKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        city:    geo.city    || "Unknown",
-        country: geo.country || "Unknown",
-        device:  getDevice(),
-        browser: getBrowser(),
-        os:      getOS()
-      })
-    });
-
-    console.log("✅ Visitor tracked!");
   } catch (err) {
-    console.log("Tracking skipped:", err.message); // Silent fail
+    console.log("Tracking skipped:", err.message);
   }
 }
 
