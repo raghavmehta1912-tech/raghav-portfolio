@@ -199,11 +199,14 @@ const statsRow = document.querySelector('.stats');
 if (statsRow) statsObserver.observe(statsRow);
 
 
-/* ════════════════════════════════════
+/* ═══════════════════
+
+
+═════════════════
    7. VISITOR TRACKER — GOOGLE SHEETS
 ════════════════════════════════════ */
 // 👇 Step 3: Apna Apps Script Web App URL yahan paste karo
-const TRACKER_URL = "https://script.google.com/macros/s/AKfycbzsBiHl5jaxCwAskYsRoyTVYLwwDKxNQEO9apN5_1joe36IHQSUtudyL5TiHsOld5w/exec";
+const TRACKER_URL = "https://script.google.com/macros/s/AKfycbwA8I-l73Frq5ETkRfgtsUF54LVZ9S-fDUtRd0zFuyqpW1Wnq1vcA_ic7i5UedqQRc/exec";
 
 async function trackVisitor() {
   if (TRACKER_URL.includes("YAHAN")) return; // URL set nahi kiya toh skip
