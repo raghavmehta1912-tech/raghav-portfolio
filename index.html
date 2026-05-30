@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghav — Salesforce Developer</title>
+<meta name="description" content="Raghav — Salesforce Certified Platform Developer I at India Shelter Finance Corporation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<canvas id="canvas-bg"></canvas>
+
+<!-- ── Floating SF Logos (decorative) ── -->
+<div class="floating-logos" aria-hidden="true">
+  <!-- Salesforce Cloud SVG -->
+  <svg class="fl fl1" viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+    <path d="M41.5 14.5C44.7 11.1 49.2 9 54.2 9c7.2 0 13.4 4.2 16.5 10.3C72.6 18.5 74.8 18 77.2 18 84.2 18 90 23.8 90 30.8c0 6.9-5.6 12.5-12.5 12.5H24c-7.7 0-14-6.3-14-14 0-7.4 5.8-13.5 13.1-14C24.5 8.6 32.1 7 41.5 14.5z" fill="none" stroke="#00A1E0" stroke-width="2"/>
+  </svg>
+  <svg class="fl fl2" viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+    <path d="M41.5 14.5C44.7 11.1 49.2 9 54.2 9c7.2 0 13.4 4.2 16.5 10.3C72.6 18.5 74.8 18 77.2 18 84.2 18 90 23.8 90 30.8c0 6.9-5.6 12.5-12.5 12.5H24c-7.7 0-14-6.3-14-14 0-7.4 5.8-13.5 13.1-14C24.5 8.6 32.1 7 41.5 14.5z" fill="none" stroke="#1B96FF" stroke-width="1.5"/>
+  </svg>
+  <svg class="fl fl3" viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+    <path d="M41.5 14.5C44.7 11.1 49.2 9 54.2 9c7.2 0 13.4 4.2 16.5 10.3C72.6 18.5 74.8 18 77.2 18 84.2 18 90 23.8 90 30.8c0 6.9-5.6 12.5-12.5 12.5H24c-7.7 0-14-6.3-14-14 0-7.4 5.8-13.5 13.1-14C24.5 8.6 32.1 7 41.5 14.5z" fill="none" stroke="#00A1E0" stroke-width="1"/>
+  </svg>
+  <!-- Hex shapes -->
+  <svg class="fl fl4" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="none" stroke="#00A1E0" stroke-width="1.5"/>
+  </svg>
+  <svg class="fl fl5" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="none" stroke="#1B96FF" stroke-width="1"/>
+  </svg>
+  <!-- Circle rings -->
+  <svg class="fl fl6" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="35" fill="none" stroke="#00A1E0" stroke-width="1" stroke-dasharray="6 4"/>
+  </svg>
+  <svg class="fl fl7" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="35" fill="none" stroke="#1B96FF" stroke-width="0.8" stroke-dasharray="3 6"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">R<em>aghav</em></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- SF logo in nav -->
+  <div class="nav-sf-logo" title="Salesforce Certified">
+    <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="46" height="28">
+      <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-0.4 2.2-0.7 3.5-0.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+    </svg>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <!-- Left content -->
+    <div class="hero-left">
+      <div class="badge-pill">
+        <svg width="14" height="14" viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-0.4 2.2-0.7 3.5-0.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+        </svg>
+        Salesforce Certified PD1 &nbsp;·&nbsp; #6737834
+      </div>
+
+      <h1>
+        <span class="ln"><span>Hi, I'm</span></span>
+        <span class="ln"><span>Raghav</span></span>
+        <span class="ln"><span class="hi">SF Developer.</span></span>
+      </h1>
+
+      <p class="hero-sub">
+        Salesforce Platform Developer at
+        <strong>India Shelter Finance Corporation Ltd.</strong> —
+        building scalable Apex, LWC and REST API integrations.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-chip">📍 Gurugram, Haryana</div>
+        <div class="meta-chip">✉️ mehtaraghav60@gmail.com</div>
+        <div class="meta-chip">📞 +91 8307600209</div>
+      </div>
+
+      <div class="ctas">
+        <a href="#projects" class="btn btn-p">View Projects</a>
+        <a href="#contact"  class="btn btn-o">Get In Touch</a>
+      </div>
+    </div>
+
+    <!-- Right: Photo + orbit -->
+    <div class="hero-right">
+      <div class="photo-wrap">
+        <!-- Orbit rings -->
+        <div class="orbit orbit1">
+          <div class="orbit-dot od1">
+            <!-- SF Cloud mini -->
+            <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="22" height="16">
+              <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+            </svg>
+          </div>
+          <div class="orbit-dot od2">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="#032D60"/>
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#00A1E0" font-size="22" font-weight="bold">A</text>
+            </svg>
+          </div>
+        </div>
+        <div class="orbit orbit2">
+          <div class="orbit-dot od3">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+              <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="#032D60"/>
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#1B96FF" font-size="14" font-weight="bold">LWC</text>
+            </svg>
+          </div>
+          <div class="orbit-dot od4">
+            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="#032D60"/>
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#3BA755" font-size="14" font-weight="bold">PD1</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Glow ring -->
+        <div class="photo-glow-ring"></div>
+
+        <!-- PHOTO — apni photo yahan rakho -->
+        <!-- 
+          Option 1: GitHub pe deploy karte waqt apni photo ka naam "photo.jpg" rakho
+                    aur usi folder mein rakho jahan index.html hai
+          Option 2: Online image URL use karo
+        -->
+        <div class="photo-frame">
+          <img src="photo.jpeg" alt="Raghav" class="photo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <!-- Fallback avatar agar photo.jpg nahi mili -->
+          <div class="photo-fallback">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="80" height="80">
+              <circle cx="50" cy="38" r="22" fill="#00A1E0" opacity="0.8"/>
+              <ellipse cx="50" cy="85" rx="34" ry="22" fill="#00A1E0" opacity="0.6"/>
+            </svg>
+            <span>Add photo.jpg</span>
+          </div>
+        </div>
+
+        <!-- Corner tag -->
+        <div class="photo-tag">
+          <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="18" height="13">
+            <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#fff"/>
+          </svg>
+          PD1 Certified
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-n" data-target="2">0</span>
+    <div class="stat-l">Years+ Experience</div>
+  </div>
+  <div class="stat">
+    <span class="stat-n" data-target="2">0</span>
+    <div class="stat-l">Projects</div>
+  </div>
+  <div class="stat">
+    <span class="stat-n" data-target="60">0</span>
+    <div class="stat-l">% Manual Effort Reduced</div>
+  </div>
+  <div class="stat">
+    <span class="stat-n" data-target="40">0</span>
+    <div class="stat-l">% Efficiency Improved</div>
+  </div>
+</div>
+
+<!-- SF TECH STRIP -->
+<div class="sf-strip">
+  <div class="sf-strip-inner">
+    <!-- Salesforce Products as SVG badges -->
+    <div class="sf-badge">
+      <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="28" height="20">
+        <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+      </svg>
+      Salesforce
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#00A1E0">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
+      Apex
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="none" stroke="#1B96FF" stroke-width="3"/>
+        <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#1B96FF" font-size="14" font-family="monospace" font-weight="bold">LW</text>
+      </svg>
+      LWC
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#3BA755" stroke-width="2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      </svg>
+      Flows
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#F88962" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4l3 3"/>
+      </svg>
+      REST API
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00A1E0" stroke-width="2">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+      </svg>
+      SOQL
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#1B96FF" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+      </svg>
+      Sales Cloud
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00A1E0" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Service Cloud
+    </div>
+    <!-- Duplicate for infinite scroll -->
+    <div class="sf-badge">
+      <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="28" height="20">
+        <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+      </svg>
+      Salesforce
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#00A1E0">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
+      Apex
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+        <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="none" stroke="#1B96FF" stroke-width="3"/>
+        <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#1B96FF" font-size="14" font-family="monospace" font-weight="bold">LW</text>
+      </svg>
+      LWC
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#3BA755" stroke-width="2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      </svg>
+      Flows
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#F88962" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+      </svg>
+      REST API
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-badge">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00A1E0" stroke-width="2">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+      </svg>
+      SOQL
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="sec-label">About Me</div>
+      <h2 class="sec-title">Building real impact <span class="hi">on the cloud</span></h2>
+      <p>I'm <strong>Raghav</strong>, a Salesforce Platform Developer at <strong>India Shelter Finance Corporation Ltd.</strong> in Gurugram. I specialise in scalable solutions — Apex business logic to polished Lightning Web Components.</p>
+      <p>Holding <strong>Salesforce PD1</strong> (Credential ID: 6737834, Sep 2025), my work has reduced manual effort by <strong>60%</strong>, boosted agent productivity by <strong>40%</strong>, and automated complex workflows end-to-end.</p>
+      <p>Beyond Salesforce, strong foundation in <strong>Java, C++, DSA, and OOP</strong> — with hands-on REST API integrations, Batch Apex, and full SF CLI deployments.</p>
+
+      <!-- SF ecosystem graphic -->
+      <div class="sf-ecosystem">
+        <div class="eco-center">
+          <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="40" height="28">
+            <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+          </svg>
+          <span>SF Org</span>
+        </div>
+        <div class="eco-node en1">Apex</div>
+        <div class="eco-node en2">LWC</div>
+        <div class="eco-node en3">SOQL</div>
+        <div class="eco-node en4">APIs</div>
+        <div class="eco-node en5">Flows</div>
+        <svg class="eco-lines" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+          <line x1="150" y1="90" x2="50"  y2="40"  stroke="#00A1E0" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+          <line x1="150" y1="90" x2="260" y2="40"  stroke="#00A1E0" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+          <line x1="150" y1="90" x2="50"  y2="145" stroke="#00A1E0" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+          <line x1="150" y1="90" x2="260" y2="145" stroke="#00A1E0" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+          <line x1="150" y1="90" x2="150" y2="10"  stroke="#00A1E0" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <!-- PD1 Cert Card -->
+      <div class="cert-card">
+        <!-- SF Cloud background watermark -->
+        <svg class="cert-watermark" viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+        </svg>
+        <div class="cert-orb">
+          <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="38" height="26">
+            <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="pill">Salesforce Certified</div>
+        <h3>Platform Developer I (PD1)</h3>
+        <p>Issued: September 2025<br>Credential ID: <strong style="color:var(--text)">6737834</strong></p>
+        <div class="pill">Salesforce.com · Verified ✓</div>
+      </div>
+
+      <!-- Java Cert -->
+      <div class="cert-card2">
+        <div class="ico2">☕</div>
+        <div>
+          <h4>Java &amp; Advanced Java</h4>
+          <p>DUCAT Institute · Issued August 2024</p>
+        </div>
+      </div>
+
+      <!-- Skill Bars -->
+      <div class="bars" id="skill-bars">
+        <div><div class="bar-head"><span>Apex &amp; Triggers</span><span>92%</span></div><div class="bar-track"><div class="bar-fill" data-w="92"></div></div></div>
+        <div><div class="bar-head"><span>Lightning Web Components</span><span>88%</span></div><div class="bar-track"><div class="bar-fill" data-w="88"></div></div></div>
+        <div><div class="bar-head"><span>SOQL / SOSL</span><span>90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+        <div><div class="bar-head"><span>REST API Integrations</span><span>82%</span></div><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
+        <div><div class="bar-head"><span>Flows &amp; Automation</span><span>80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+        <div><div class="bar-head"><span>Batch &amp; Queueable Apex</span><span>85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label">Technical Arsenal</div>
+  <h2 class="sec-title">Skills &amp; <span class="hi">Technologies</span></h2>
+  <div class="skills-grid">
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#00A1E0"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3>Apex Development</h3>
+      <p>Bulkified, scalable Apex classes, triggers, batch jobs, and queueable apex following governor limit best practices.</p>
+      <div class="tags"><span class="tag">Apex Classes</span><span class="tag">Triggers</span><span class="tag">Batch Apex</span><span class="tag">Queueable</span><span class="tag">Future Methods</span></div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+          <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" fill="none" stroke="#1B96FF" stroke-width="4"/>
+          <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#1B96FF" font-size="16" font-family="monospace" font-weight="bold">LW</text>
+        </svg>
+      </div>
+      <h3>Lightning Web Components</h3>
+      <p>Modern, reusable LWC interfaces with custom events, wire adapters, and Apex controller integration.</p>
+      <div class="tags"><span class="tag">LWC</span><span class="tag">Custom Events</span><span class="tag">Wire Service</span><span class="tag">Apex Controllers</span></div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#F88962" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+      </div>
+      <h3>REST API Integrations</h3>
+      <p>Connecting Salesforce to external services — SMS, WhatsApp, ERP systems via Apex callouts and named credentials.</p>
+      <div class="tags"><span class="tag">REST APIs</span><span class="tag">Apex Callouts</span><span class="tag">Platform Events</span><span class="tag">External Services</span></div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#00A1E0" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      </div>
+      <h3>Data &amp; Queries</h3>
+      <p>Complex SOQL/SOSL queries, Data Loader, Workbench and bulk data processing with validation logic.</p>
+      <div class="tags"><span class="tag">SOQL</span><span class="tag">SOSL</span><span class="tag">Data Loader</span><span class="tag">Workbench</span><span class="tag">MySQL</span></div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#3BA755" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <h3>Automation &amp; Config</h3>
+      <p>No-code and low-code automation with Flows, Validation Rules, replacing manual operations smartly.</p>
+      <div class="tags"><span class="tag">Flows</span><span class="tag">Validation Rules</span><span class="tag">Process Builder</span><span class="tag">Approval Processes</span></div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#1B96FF" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h3>Dev Tools &amp; Languages</h3>
+      <p>Full SF DX workflow — VS Code, Postman, SF CLI. Java and C++ with strong OOP and DSA foundations.</p>
+      <div class="tags"><span class="tag">SF CLI</span><span class="tag">VS Code</span><span class="tag">Postman</span><span class="tag">Java</span><span class="tag">C++</span><span class="tag">HTML/CSS/JS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">Career</div>
+  <h2 class="sec-title">Work <span class="hi">Experience</span></h2>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot">
+        <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="22" height="16" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="tl-date">Oct 2024 — Present · Gurugram, Haryana</div>
+      <h3>Salesforce Developer</h3>
+      <div class="tl-co">India Shelter Finance Corporation Ltd.</div>
+      <ul>
+        <li>Developed a scalable bulk data upload solution using Apex and LWC, supporting CSV parsing, data validation, and error handling for large datasets.</li>
+        <li>Built intuitive LWC interfaces that reduced training time by 25% and increased user adoption across the org.</li>
+        <li>Implemented Batch Apex and Queueable Apex to process high-volume records asynchronously, ensuring scalability.</li>
+        <li>Integrated SMS and WhatsApp APIs using Apex callouts for real-time payment reminders.</li>
+        <li>Built a centralized Customer Collection Dashboard with live EMI, disbursement and outstanding charge data.</li>
+      </ul>
+      <!-- tech used row -->
+      <div class="tl-tech">
+        <span class="tag">Apex</span><span class="tag">LWC</span><span class="tag">Batch Apex</span><span class="tag">REST APIs</span><span class="tag">SOQL</span><span class="tag">Dashboards</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">Work</div>
+  <h2 class="sec-title">Featured <span class="hi">Projects</span></h2>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-vis pv1">
+        <svg class="proj-grid-svg" viewBox="0 0 400 195" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00A1E0" stroke-width="0.5"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#grid1)"/>
+          <circle cx="200" cy="97" r="65" fill="none" stroke="#00A1E0" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="200" cy="97" r="38" fill="none" stroke="#00A1E0" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <!-- Big SF cloud watermark -->
+        <svg class="proj-sf-mark" viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+        </svg>
+        <div class="pv-icon">📤</div>
+        <div class="pv-num">01</div>
+      </div>
+      <div class="proj-body">
+        <h3>Bulk Upload Tool</h3>
+        <p>Scalable LWC + Apex solution for large-scale data imports with real-time validation and CSV parsing.</p>
+        <ul>
+          <li>Reduced manual data entry effort by <strong>60%</strong> and streamlined bulk operations.</li>
+          <li>Real-time feedback with detailed error reports — data correction efficiency up by <strong>40%</strong>.</li>
+          <li>Reduced admin dependency by <strong>60%</strong> — normal users can upload independently.</li>
+          <li>Built with LWC, Apex classes, triggers with full validation and processing logic.</li>
+        </ul>
+        <div class="tags"><span class="tag">LWC</span><span class="tag">Apex</span><span class="tag">Triggers</span><span class="tag">CSV Parsing</span><span class="tag">Batch Apex</span></div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-vis pv2">
+        <svg class="proj-grid-svg" viewBox="0 0 400 195" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#3BA755" stroke-width="0.5"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#grid2)"/>
+          <circle cx="200" cy="97" r="65" fill="none" stroke="#3BA755" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="200" cy="97" r="38" fill="none" stroke="#3BA755" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <svg class="proj-sf-mark" viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#3BA755"/>
+        </svg>
+        <div class="pv-icon">📞</div>
+        <div class="pv-num">02</div>
+      </div>
+      <div class="proj-body">
+        <h3>CCC — Customer Collection Campaign</h3>
+        <p>Salesforce-based call center solution for EMI and payment collection with real-time financial data.</p>
+        <ul>
+          <li>Centralized dashboard — pending EMIs, disbursement details, collection history &amp; outstanding charges.</li>
+          <li>Integrated <strong>SMS &amp; WhatsApp APIs</strong> via Apex callouts for real-time payment reminders.</li>
+          <li>Reduced manual follow-ups by <strong>50%</strong> by streamlining workflows.</li>
+          <li>Enhanced agent productivity by <strong>30–40%</strong> through instant financial data access.</li>
+        </ul>
+        <div class="tags"><span class="tag">LWC</span><span class="tag">Apex</span><span class="tag">REST APIs</span><span class="tag">SMS/WhatsApp</span><span class="tag">Dashboards</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sec-label">Recognition</div>
+  <h2 class="sec-title">Achievements &amp; <span class="hi">Leadership</span></h2>
+  <div class="ach-grid">
+    <div class="ach-card">
+      <div class="ach-icon-wrap">
+        <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="32" height="22">
+          <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+        </svg>
+      </div>
+      <h3>Salesforce PD1 Certified</h3>
+      <p>Credential ID: 6737834 · September 2025 · Salesforce.com Verified</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon-wrap">🚀</div>
+      <h3>Smart Indian Hackathon 2024</h3>
+      <p>Selected to represent in SIH 2024 — India's largest national-level innovation challenge.</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon-wrap">🥈</div>
+      <h3>2nd Prize — MUN Conference</h3>
+      <p>Secured 2nd Prize at MUN Conference and earned Best Speaker title at a Debate Competition.</p>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon-wrap">🎙️</div>
+      <h3>VP — Orators Society</h3>
+      <p>Led a student-driven public speaking society focused on communication, leadership, and critical thinking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-label">Academic Background</div>
+  <h2 class="sec-title">Education</h2>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div class="edu-info">
+      <h3>The Technological Institute of Textile and Sciences</h3>
+      <p>B.Tech in Computer Science · Bhiwani, Haryana · Jun 2021 – Jun 2025</p>
+      <div class="cgpa">CGPA: 7.8 / 10.0</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="sec-label" style="justify-content:center">Contact</div>
+    <!-- Big SF cloud graphic -->
+    <div class="contact-cloud">
+      <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" width="180" height="126">
+        <path d="M82 28C88 21 97 17 107 17c18 0 33.5 10.5 41 25.5 4-1.5 8.5-2.5 13.5-2.5C178 40 192 54 192 71.5S178 103 161 103H46C29 103 16 90 16 73c0-16.5 12.5-30 28.5-31C48 24 63 15 82 28z" fill="none" stroke="#00A1E0" stroke-width="2" opacity="0.3"/>
+        <path d="M82 28C88 21 97 17 107 17c18 0 33.5 10.5 41 25.5 4-1.5 8.5-2.5 13.5-2.5C178 40 192 54 192 71.5S178 103 161 103H46C29 103 16 90 16 73c0-16.5 12.5-30 28.5-31C48 24 63 15 82 28z" fill="none" stroke="#00A1E0" stroke-width="1" opacity="0.15" transform="scale(0.85) translate(14,10)"/>
+      </svg>
+    </div>
+    <div class="contact-big">Let's <span class="hi">Connect</span></div>
+    <p class="contact-sub">Open to Salesforce opportunities, freelance projects, and collaborations. Let's build something great.</p>
+    <a href="mailto:mehtaraghav60@gmail.com" class="btn btn-p" style="font-size:0.8rem">Say Hello →</a>
+    <div class="contact-chips">
+      <a href="https://www.linkedin.com/in/raghav-mehta-68a938225/"             class="contact-chip">🔗 LinkedIn</a>
+      <a href="https://www.salesforce.com/trailblazer/h6cud85kp8uhpw07ir" class="contact-chip">☁️ Trailhead</a>
+      <a href="mailto:mehtaraghav60@gmail.com"   class="contact-chip">✉️ mehtaraghav60@gmail.com</a>
+      <a href="tel:+918307600209"                class="contact-chip">📞 +91 8307600209</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Raghav · Salesforce Developer Portfolio</div>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    Built with
+    <svg viewBox="0 0 50 35" xmlns="http://www.w3.org/2000/svg" width="28" height="20">
+      <path d="M20.5 7C22.5 5 25.4 4 28.4 4c4.5 0 8.4 2.6 10.3 6.4 1-.4 2.2-.7 3.5-.7C46.3 9.7 50 13.4 50 18s-3.7 8.3-8.3 8.3H11.5C7 26.3 4 23.3 4 19c0-4.3 3.3-7.8 7.5-8.1C12.2 5.8 15.8 3.5 20.5 7z" fill="#00A1E0"/>
+    </svg>
+    &amp; <span class="sf-text">Apex</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
